@@ -29,6 +29,7 @@ docker container rm -f armv7alpine
 docker run \
     --name armv7alpine \
     --net host \
+    --platform=linux/arm/v7 \
     --mount type=bind,source=./bootstrap.sh,target=/bootstrap.sh \
     -v "$ROOTFS_WORKSPACE_MNT:/extrootfs" \
     arm32v7/alpine \
