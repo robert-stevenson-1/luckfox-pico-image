@@ -1,10 +1,15 @@
 auto lo
 iface lo inet loopback
+
 auto eth0
 iface eth0 inet dhcp
     udhcpc_opts -t 1
+
 auto usb0
-iface usb0 inet static
-    address 172.32.0.93
+iface usb0 inet dhcp
+
+auto usb0:1
+iface usb0:1 inet static
+    address 10.10.10.10
     netmask 255.255.255.0
-    gateway 172.32.0.1
+    gateway 10.10.10.1
