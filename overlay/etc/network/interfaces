@@ -10,6 +10,11 @@ iface usb0 inet dhcp
 
 auto usb0:1
 iface usb0:1 inet static
+    address 192.168.137.254
+    netmask 255.255.255.0
+    gateway 192.168.137.1
+
+auto usb0:2
+iface usb0:2 inet static
     address 10.10.10.10
     netmask 255.255.255.0
-    gateway 10.10.10.1

@@ -56,7 +56,7 @@ jobs:
           python-is-python3 passwd openssl openssh-server \
           openssh-client vim file cpio rsync"
 
-      - name: Restore cached build
+      - name: restore cached build
         id: cache-build
         uses: actions/cache/restore@v4
         with:
@@ -72,7 +72,7 @@ jobs:
           name: ${{ matrix.device }}-sysupgrade
           path: output/${{ matrix.device }}-sysupgrade.img
 
-      - name: Save build to cache
+      - name: save build to cache
         uses: actions/cache/save@v4
         with:
           path: sdk/output/
