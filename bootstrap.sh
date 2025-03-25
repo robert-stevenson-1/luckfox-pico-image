@@ -31,13 +31,10 @@ apk add mtd-utils-ubi bottom nano ca-certificates curl
 apk add mtd-utils-ubi udhcpd
 rc-update add udhcpd default
 
-# NTP
+# Timezone
 apk add tzdata
 cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 apk del tzdata
-
-apk add chrony
-rc-update add chrony default
 
 # Syslog
 apk add busybox-openrc
