@@ -31,6 +31,15 @@ apk add mtd-utils-ubi bottom nano ca-certificates curl
 apk add mtd-utils-ubi udhcpd
 rc-update add udhcpd default
 
+# NTP
+apk add tzdata
+cp /usr/share/zoneinfo/Your/Timezone /etc/localtime
+apk del tzdata
+
+apk add chrony
+rc-update add chrony default
+mkdir -p /extrootfs/var/run/chrony
+
 # Syslog
 apk add busybox-openrc
 rc-update add syslog boot
