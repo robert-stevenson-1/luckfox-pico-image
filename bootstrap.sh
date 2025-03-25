@@ -33,7 +33,7 @@ rc-update add udhcpd default
 
 # NTP
 apk add tzdata
-cp /usr/share/zoneinfo/Your/Timezone /etc/localtime
+cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 apk del tzdata
 
 apk add chrony
