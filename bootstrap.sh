@@ -38,7 +38,6 @@ apk del tzdata
 
 apk add chrony
 rc-update add chrony default
-mkdir -p /extrootfs/var/run/chrony
 
 # Syslog
 apk add busybox-openrc
