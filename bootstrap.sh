@@ -28,8 +28,8 @@ rc-update add sshd default
 apk add mtd-utils-ubi bottom nano ca-certificates curl
 
 # DHCP server
-apk add mtd-utils-ubi udhcpd
-rc-update add udhcpd default
+apk add mtd-utils-ubi dnsmasq
+rc-update add dnsmasq default
 
 # Timezone
 apk add tzdata
