@@ -31,7 +31,7 @@ jobs:
 #          - pico-pro-max
     # runs-on: "cirun-aws-amd64--${{ github.run_id }}"
 
-    runs-on: luckfoxtech/luckfox_pico:1.0 #ubuntu-latest
+    runs-on: ubuntu-latest
     needs: build-rootfs
     steps:
       - name: checkout
@@ -44,17 +44,17 @@ jobs:
         with:
           name: rootfs-alpine
 
-#      - name: update apt
-#        run: sudo apt update
-#
-#      - name: install deps
-#        run: "sudo apt install -y \
-#          git ssh make gcc gcc-multilib g++-multilib \
-#          module-assistant expect g++ gawk texinfo libssl-dev \
-#          bison flex fakeroot cmake unzip gperf autoconf \
-#          device-tree-compiler libncurses5-dev pkg-config bc \
-#          python-is-python3 passwd openssl openssh-server \
-#          openssh-client vim file cpio rsync"
+      - name: update apt
+        run: sudo apt update
+
+      - name: install deps
+        run: "sudo apt install -y \
+          git ssh make gcc gcc-multilib g++-multilib \
+          module-assistant expect g++ gawk texinfo libssl-dev \
+          bison flex fakeroot cmake unzip gperf autoconf \
+          device-tree-compiler libncurses5-dev pkg-config bc \
+          python-is-python3 passwd openssl openssh-server \
+          openssh-client vim file cpio rsync"
 
       - name: build system
         run: ./system.sh -f rootfs-alpine.tar.gz -d ${{ matrix.device }}
