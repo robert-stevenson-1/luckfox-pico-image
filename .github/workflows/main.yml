@@ -56,6 +56,13 @@ jobs:
           python-is-python3 passwd openssl openssh-server \
           openssh-client vim file cpio rsync"
 
+      - name: Restore cached build
+        id: cache-build
+        uses: actions/cache/restore@v4
+        with:
+          path: sdk/output/
+          key: ${{ runner.os }}-sdk-${{ matrix.device }}-${{ hashFiles('sdk/Makefile') }}
+
       - name: build system
         run: ./system.sh -f rootfs-alpine.tar.gz -d ${{ matrix.device }}
 
@@ -64,3 +71,9 @@ jobs:
         with:
           name: ${{ matrix.device }}-sysupgrade
           path: output/${{ matrix.device }}-sysupgrade.img
+
+      - name: Save build to cache
+        uses: actions/cache/save@v4
+        with:
+          path: sdk/output/
+          key: ${{ steps.cache-build.outputs.cache-primary-key }}
