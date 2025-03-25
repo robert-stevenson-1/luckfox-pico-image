@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eu
+
 # Install base
 apk update
 apk add openrc
@@ -23,11 +25,15 @@ apk add openssh
 rc-update add sshd default
 
 # Extra stuff
-apk add mtd-utils-ubi bottom neofetch
+apk add mtd-utils-ubi bottom nano ca-certificates curl
 
 # DHCP server
 apk add mtd-utils-ubi udhcpd
 rc-update add udhcpd default
+
+# Syslog
+apk add busybox-openrc
+rc-update add syslog boot
 
 # Clear apk cache
 rm -rf /var/cache/apk/*
