@@ -32,7 +32,7 @@ apk add mtd-utils-ubi dnsmasq
 rc-update add dnsmasq default
 
 # Timezone
-# to update time, run  `ntpd -N -q -d -n`
+# to update time, run  `ntpd -dqn`
 apk add tzdata
 cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 apk del tzdata
@@ -43,7 +43,6 @@ rc-update add syslog boot
 
 # Crond
 rc-update add crond
-
 
 # Clear apk cache
 rm -rf /var/cache/apk/*
