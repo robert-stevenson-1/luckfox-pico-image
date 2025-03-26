@@ -1,0 +1,65 @@
+#!/bin/bash
+
+source /etc/os-release
+
+UPTIME_SECONDS=$(cut -d '.' -f1 /proc/uptime)
+UPTIME_DAYS=$(( UPTIME_SECONDS / 86400 ))
+UPTIME_HOURS=$(( (UPTIME_SECONDS % 86400) / 3600 ))
+UPTIME_MINUTES=$(( (UPTIME_SECONDS % 3600) / 60 ))
+
+get_free() {
+  head -2 | tail -1 | awk {'print $2'}
+}
+
+get_total() {
+  head -2 | tail -1 | awk {'print $4'}
+}
+
+cat << EOF
+                            ====               ====
+                          ========           ========
+                          ===========     ===========
+                          ====  ===============  ====
+                          ====     =========     ====
+                          ====                   ====
+                         =                           =
+                          ============    ============
+                        ================================
+                      ======      ==========      =======
+                      =====         =======          =====
+                      ==========      ===     ===========
+                        ============        ============
+                              =======      ======
+                                ======    =====
+                                  ============
+                                    ========
+                                      ====
+
+          _/                            _/          _/_/
+         _/        _/    _/    _/_/_/  _/  _/    _/        _/_/    _/    _/
+        _/        _/    _/  _/        _/_/    _/_/_/_/  _/    _/    _/_/
+       _/        _/    _/  _/        _/  _/    _/      _/    _/  _/    _/
+      _/_/_/_/    _/_/_/    _/_/_/  _/    _/  _/        _/_/    _/    _/
+
+                                                                Pico Mini B
+
+        Welcome!
+
+  Name:         $(hostname)
+  Uptime:       $UPTIME_DAYS days, $UPTIME_HOURS hours, $UPTIME_MINUTES minutes
+
+  CPU:          $(grep 'model name' /proc/cpuinfo | head -1 | cut -d: -f2 | xargs)
+  CPU Load:     $(uptime | rev | cut -d: -f 1 | rev | xargs)
+
+  Kernel:       $(uname -r)
+  Distro:       $PRETTY_NAME
+  Version       $VERSION_ID
+
+  Disk:         $(df -h / | get_free)M
+  Free Disk:    $(df -h / | get_total)M
+  Memory:       $(free -m | get_free)M
+  Free Memory:  $(free -m | get_total)M
+
+NOTE: For accurate time, please run "ntpd -dnq" to sync time with NTP server.
+
+EOF

@@ -41,6 +41,10 @@ apk del tzdata
 apk add busybox-openrc
 rc-update add syslog boot
 
+# Crond
+rc-update add crond
+
+
 # Clear apk cache
 rm -rf /var/cache/apk/*
 
