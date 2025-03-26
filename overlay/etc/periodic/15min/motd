@@ -15,6 +15,12 @@ get_total() {
   head -2 | tail -1 | awk {'print $4'}
 }
 
+get_ips() {
+  local iface="$1"
+
+  ip -4 -o addr show dev "$iface" | awk '{print $4}' | cut -d/ -f1 | sort -t . -n -k 1,1n -n -k 2,2n -n -k 3,3n -n -k 4,4n
+}
+
 cat << EOF
                             ====               ====
                           ========           ========
@@ -60,6 +66,5 @@ cat << EOF
   Memory:       $(free -m | get_free)M
   Free Memory:  $(free -m | get_total)M
 
-NOTE: For accurate time, please run "ntpd -dnq" to sync time with NTP server.
-
+  usb0 IPs:     $(get_ips "usb0" | xargs)
 EOF
