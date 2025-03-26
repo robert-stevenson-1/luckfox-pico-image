@@ -1,6 +1,9 @@
-#!/sbin/openrc-run
+#!/bin/bash
+
+__self__="$(realpath "$0")"
 
 chown -R 0:0 /root
 chmod 700 /root /root/.ssh
 chmod 600 /root/.ssh/authorized_keys
-rm -vf /etc/init.d/05_root_permissions
+
+mv "$__self__" "$__self__.ran"
