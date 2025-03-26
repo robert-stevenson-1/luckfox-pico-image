@@ -25,7 +25,7 @@ apk add openssh
 rc-update add sshd default
 
 # Extra stuff
-apk add mtd-utils-ubi bottom nano ca-certificates curl
+apk add mtd-utils-ubi bottom nano ca-certificates curl util-linux
 
 # DHCP server
 apk add mtd-utils-ubi dnsmasq
