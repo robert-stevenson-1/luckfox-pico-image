@@ -1,7 +1,0 @@
-#!/bin/bash
-
-__self__="$(realpath "$0")"
-
-mkdir -p /var/lib/misc  # for dnsmasq
-
-mv "$__self__" "$__self__.ran"

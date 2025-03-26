@@ -2,8 +2,12 @@
 
 __self__="$(realpath "$0")"
 
+# ssh keys
 chown -R 0:0 /root
 chmod 700 /root /root/.ssh
 chmod 600 /root/.ssh/authorized_keys
+
+# syslog
+chmod 755 /var/log
 
 mv "$__self__" "$__self__.ran"
