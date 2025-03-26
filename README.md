@@ -15,12 +15,12 @@ for latest Alpine Linux images.
 
 See
 [the official docs](https://wiki.luckfox.com/Luckfox-Pico/Linux-MacOS-Burn-Image)
-for instructions on flashing `update.img` to your Pico board.
+for instructions on flashing `pico-mini-b-sysupgrade` to your Pico board.
 
 For example, to flash Pico Pro Max boards,
 connect the board to your computer while pressing _BOOT_ key, then execute
 ```bash
-sudo ./upgrade_tool uf pico-pro-max-sysupgrade.img
+sudo ./upgrade_tool uf pico-mini-b-sysupgrade
 ```
 
 ## Setting Up
