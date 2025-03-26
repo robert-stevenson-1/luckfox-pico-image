@@ -41,13 +41,13 @@ This system image has RNDIS enabled for all boards.
 To connect to your Pico through RNDIS,
 check out [the official guide](https://wiki.luckfox.com/Luckfox-Pico/SSH-Telnet-Login/).
 
-The board's static IP is `172.32.0.93`.
+The board's static IP is `10.1.1.1`.
 
 Below is a brief guide to connect via RNDIS on Linux:
 ```bash
 ip link # obtain network device name of pico
-sudo ip addr add 172.32.0.100/16 dev <network_device_of_pico>
-ping 172.32.0.93 # it works!
+sudo ip addr add 10.1.1.10/24 dev <network_device_of_pico>
+ping 10.1.1.1 # it works!
 ```
 
 ## Customization

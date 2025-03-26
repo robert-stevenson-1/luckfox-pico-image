@@ -16,5 +16,5 @@ iface usb0:1 inet static
 
 auto usb0:2
 iface usb0:2 inet static
-    address 10.10.10.10
+    address 10.1.1.1
     netmask 255.255.255.0
