@@ -1,6 +1,6 @@
 #!/bin/ash
 
-set -eu
+set -eux
 
 # Install base
 apk update
@@ -25,7 +25,10 @@ apk add openssh
 rc-update add sshd default
 
 # Extra stuff
-apk add mtd-utils-ubi bottom nano ca-certificates curl util-linux
+apk add mtd-utils-ubi bottom nano 
+
+# Nice to have
+apk add ca-certificates curl util-linux eza
 
 # DHCP server
 apk add mtd-utils-ubi dnsmasq
