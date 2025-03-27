@@ -67,4 +67,9 @@ cat > /etc/motd << EOF
   Free Memory:  $(free -m | get_total)M
 
   usb0 IPs:     $(get_ips "usb0" | xargs)
+
+  NOTE: For accurate time synchronization, please ensure that the device has access to the internet and run
+        "ntpd -dqn" or "sync_time" (which is an alias). This also needs to be run before you want to
+        install additional software.
+
 EOF
