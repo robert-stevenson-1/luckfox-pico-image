@@ -1,6 +1,6 @@
 #!/bin/ash
 
-set -eux
+set -euo pipefail
 
 # Install base
 apk update
@@ -25,7 +25,7 @@ apk add openssh
 rc-update add sshd default
 
 # Extra stuff
-apk add mtd-utils-ubi bottom nano 
+apk add mtd-utils-ubi bottom nano
 
 # Nice to have
 apk add ca-certificates curl util-linux eza

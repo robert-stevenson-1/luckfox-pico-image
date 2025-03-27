@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -euo pipefail
+
 OUTPUT_DIR="output"
 ROOTFS_FILE="rootfs-alpine.tar.gz"
 
@@ -7,7 +10,7 @@ ROOTFS_WORKSPACE_FILE="$ROOTFS_WORKSPACE_NAME.ext4"
 ROOTFS_WORKSPACE_MNT="/tmp/$ROOTFS_WORKSPACE_NAME/"
 
 rootfs_workspace_drop() {
-  umount -R "$ROOTFS_WORKSPACE_MNT"
+  umount -R "$ROOTFS_WORKSPACE_MNT" || true
   rm -rf "$ROOTFS_WORKSPACE_FILE" "$ROOTFS_WORKSPACE_MNT"
 }
 rootfs_workspace_new() {
