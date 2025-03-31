@@ -28,7 +28,7 @@ rc-update add sshd default
 apk add mtd-utils-ubi bottom nano
 
 # Nice to have
-apk add ca-certificates curl util-linux eza
+apk add ca-certificates curl util-linux eza micropython
 
 # DHCP server
 apk add mtd-utils-ubi dnsmasq
