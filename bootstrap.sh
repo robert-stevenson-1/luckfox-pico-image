@@ -21,14 +21,14 @@ echo -e "luckfox\nluckfox" | passwd
 apk del -r shadow
 
 # Install SSH
-apk add openssh
-rc-update add sshd default
+apk add dropbear
+rc-update add dropbear default
 
 # Extra stuff
 apk add mtd-utils-ubi bottom nano
 
 # Nice to have
-apk add ca-certificates curl util-linux eza micropython
+apk add ca-certificates curl util-linux
 
 # DHCP server
 apk add mtd-utils-ubi dnsmasq
@@ -37,7 +37,7 @@ rc-update add dnsmasq default
 # Timezone
 # to update time, run  `ntpd -dqn`
 apk add tzdata
-cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 apk del tzdata
 
 # Syslog
