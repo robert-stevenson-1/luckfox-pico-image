@@ -28,7 +28,7 @@ rc-update add dropbear default
 apk add mtd-utils-ubi bottom nano
 
 # Nice to have
-apk add ca-certificates curl util-linux
+apk add ca-certificates curl util-linux eza
 
 # DHCP server
 apk add mtd-utils-ubi dnsmasq
