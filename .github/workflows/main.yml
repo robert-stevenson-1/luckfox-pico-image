@@ -1,10 +1,13 @@
 name: ci
 
-on:
-  workflow_dispatch:
+on: 
+  release:
+    types: [published]
   push:
-    branches:
-      - "main"
+    tags:
+    - 'v*'
+  watch:
+    types: [started]
 
 jobs:
   build-rootfs:
@@ -26,8 +29,8 @@ jobs:
     strategy:
       matrix:
         device:
-          - pico-mini-b
-#          - pico-plus
+#          - pico-mini-b
+          - pico-plus
 #          - pico-pro-max
     # runs-on: "cirun-aws-amd64--${{ github.run_id }}"
 
