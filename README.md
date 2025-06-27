@@ -226,3 +226,13 @@ echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -A FORWARD -i usb0 -o eth0 -j ACCEPT
 ```
+
+#### Note: re:using usb and internet access
+
+Seeing as I prefer Ethernet to be default, sometime is still need usb internet. There for to get internet on the pico I need to run this command on the pico to set the default to `usb0`
+
+```bash
+ip route add default via 192.168.137.1 dev usb0
+```
+
+> I might add a handy script to do this for myself, prefereably auto detecting if I am accessing over usb.
