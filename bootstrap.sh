@@ -20,15 +20,20 @@ chsh -s /bin/bash
 echo -e "luckfox\nluckfox" | passwd
 apk del -r shadow
 
+# SUPER Nice to have
+apk add alpine-conf
+
 # Install SSH
 apk add dropbear
 rc-update add dropbear default
+# let also double apply this via the setup-script (as scp doesn't work prior to running this?)
+setup-sshd -c dropbear
 
 # Extra stuff
 apk add mtd-utils-ubi bottom nano btop fastfetch
 
 # Nice to have
-apk add ca-certificates curl util-linux eza
+apk add ca-certificates curl util-linux eza 
 
 # DHCP server
 apk add mtd-utils-ubi dnsmasq
