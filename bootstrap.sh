@@ -25,7 +25,7 @@ apk add dropbear
 rc-update add dropbear default
 
 # Extra stuff
-apk add mtd-utils-ubi bottom nano
+apk add mtd-utils-ubi bottom nano btop fastfetch
 
 # Nice to have
 apk add ca-certificates curl util-linux eza
