@@ -126,25 +126,50 @@ restart_networking() {
 test_connectivity() {
     log "Testing network connectivity..."
     
-    # Test host connectivity
-    if ping -c 3 -W 2 192.168.137.1 >/dev/null 2>&1; then
-        log "✓ Host connection successful (192.168.137.1)"
+    # Test host connectivity (try HTTP first, fallback to ping)
+    if curl -s --connect-timeout 3 --max-time 5 http://192.168.137.1 >/dev/null 2>&1; then
+        log "✓ Host connection successful (192.168.137.1) via HTTP"
+    elif ping -c 2 -W 2 192.168.137.1 >/dev/null 2>&1; then
+        log "✓ Host connection successful (192.168.137.1) via ping"
     else
         warn "✗ Cannot reach host at 192.168.137.1"
         return 1
     fi
     
-    # Test internet connectivity
-    if ping -c 3 -W 5 8.8.8.8 >/dev/null 2>&1; then
-        log "✓ Internet connectivity working"
-    else
-        warn "✗ No internet connectivity"
+    # Test internet connectivity using HTTP instead of ping
+    log "Testing internet connectivity (HTTP-based)..."
+    
+    # Try multiple reliable HTTP endpoints
+    internet_working=false
+    
+    # Test Cloudflare (usually very reliable)
+    if curl -s --connect-timeout 5 --max-time 10 -I http://1.1.1.1 >/dev/null 2>&1; then
+        log "✓ Internet connectivity working (Cloudflare)"
+        internet_working=true
+    # Test Google
+    elif curl -s --connect-timeout 5 --max-time 10 -I http://google.com >/dev/null 2>&1; then
+        log "✓ Internet connectivity working (Google)"
+        internet_working=true
+    # Test a different approach - try to connect to a common port
+    elif timeout 5 nc -z 8.8.8.8 53 2>/dev/null; then
+        log "✓ Internet connectivity working (DNS port check)"
+        internet_working=true
+    # Fallback to ping if HTTP is blocked but ICMP works
+    elif ping -c 2 -W 3 8.8.8.8 >/dev/null 2>&1; then
+        log "✓ Internet connectivity working (ping fallback)"
+        internet_working=true
+    fi
+    
+    if [ "$internet_working" = false ]; then
+        warn "✗ No internet connectivity detected"
         return 1
     fi
     
     # Test DNS resolution
     if nslookup google.com >/dev/null 2>&1; then
         log "✓ DNS resolution working"
+    elif host google.com >/dev/null 2>&1; then
+        log "✓ DNS resolution working (host command)"
     else
         warn "✗ DNS resolution failed"
         return 1
@@ -201,14 +226,21 @@ start() {
         chattr +i /etc/resolv.conf 2>/dev/null || true
     fi
     
-    # Wait for network to be ready
+    # Wait for network to be ready (try HTTP first, fallback to ping)
     timeout=30
-    while [ $timeout -gt 0 ] && ! ping -c 1 -W 1 192.168.137.1 >/dev/null 2>&1; do
-        sleep 1
-        timeout=$((timeout - 1))
+    network_ready=false
+    while [ $timeout -gt 0 ] && [ "$network_ready" = false ]; do
+        if curl -s --connect-timeout 2 --max-time 3 http://192.168.137.1 >/dev/null 2>&1; then
+            network_ready=true
+        elif ping -c 1 -W 1 192.168.137.1 >/dev/null 2>&1; then
+            network_ready=true
+        else
+            sleep 1
+            timeout=$((timeout - 1))
+        fi
     done
     
-    if [ $timeout -eq 0 ]; then
+    if [ "$network_ready" = false ]; then
         ewarn "Network not ready, skipping time sync"
         return 1
     fi
